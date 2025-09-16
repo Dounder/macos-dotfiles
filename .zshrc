@@ -74,29 +74,11 @@ alias reload="exec zsh"
 
 # Applications
 alias zed="open -a /Applications/Zed.app -n"
+alias lzd="lazydocker"
 
 # =============================================================================
-# Git Aliases
+# Advanced Git Aliases
 # =============================================================================
-
-alias g='git'
-alias gs='git status'
-alias ga='git add'
-alias gaa='git add .'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gp='git push'
-alias gpp='git pull'
-alias gpo='git push origin'
-alias gpom='git push origin main'
-alias gco='git checkout'
-alias gcb='git checkout -b'
-alias gb='git branch'
-alias gbd='git branch -d'
-alias gm='git merge'
-alias gl='git log --oneline'
-alias gd='git diff'
-alias gds='git diff --staged'
 
 # Advanced Git Aliases
 alias gbalocal="git branch -l | grep -v -E '(prod|main|dev|develop|staging|HEAD)' | sed 's/ origin\///'"
