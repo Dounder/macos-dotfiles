@@ -9,16 +9,6 @@ git config --global alias.last 'log -1 HEAD --stat'
 # Git diff
 git config --global alias.d 'diff'
 git config --global alias.dv 'difftool -t vimdiff -y'
-
-# Combine all in one line
-git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold  blue)<%an>%Creset' --abbrev-commit" \
-& git config --global alias.s 'status -sb' \
-& git config --global alias.ll 'log --oneline' \
-& git config --global alias.last 'log -1 HEAD --stat' \
-& git config --global alias.d 'diff' \
-& git config --global alias.dv 'difftool -t vimdiff -y'
-
-
 # Additional Git aliases
 git config --global alias.gs 'status'
 git config --global alias.ga 'add'
