@@ -68,10 +68,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Configuration
-alias ec="code $HOME/.zshrc"
+alias ec="code $HOME/.dotfiles/.zshrc"
 alias sc="source $HOME/.zshrc"
 alias reload="exec zsh"
-alias aec="code $HOME/.config/aerospace/aerospace.toml"
+alias aec="code $HOME/.dotfiles/.config/aerospace/aerospace.toml"
 
 # Applications
 alias zed="open -a /Applications/Zed.app -n"
