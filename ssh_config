@@ -1,0 +1,17 @@
+# Use macOS Keychain for SSH passphrases
+Host *
+   AddKeysToAgent yes
+   UseKeychain yes
+   IdentitiesOnly yes
+
+# Personal GitHub account
+Host github.com
+   HostName github.com
+   User git
+   IdentityFile ~/.ssh/personal
+
+# Work BitBucket account
+Host bitbucket.org
+   HostName bitbucket.org
+   User git
+   IdentityFile ~/.ssh/work

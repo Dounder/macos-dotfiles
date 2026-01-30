@@ -4,6 +4,7 @@
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 
 
+
 # =============================================================================
 # .zshrc Configuration
 # =============================================================================
@@ -73,12 +74,13 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 
 # Configuration
-alias ec="zed $HOME/.dotfiles/.zshrc"
+alias ec="code $HOME/.dotfiles/.zshrc"
 alias sc="source $HOME/.zshrc"
 alias reload="exec zsh"
-alias aec="zed $HOME/.dotfiles/.config/aerospace/aerospace.toml"
+alias aec="code $HOME/.dotfiles/.config/aerospace/aerospace.toml"
 
 # Applications
+alias zed="open -a /Applications/Zed.app -n"
 alias lzd="lazydocker"
 
 # =============================================================================
@@ -153,6 +155,12 @@ alias ps='pnpm start'
 alias pt='pnpm test'
 alias pb='pnpm build'
 
+# =============================================================================
+# Golang aliases
+# =============================================================================
+
+alias air='~/.air'
+
 # Update all package managers
 alias @update='npm i -g npm yarn pnpm bun && brew update && brew upgrade'
 alias brewup="brew update && brew upgrade && brew cleanup"
@@ -201,9 +209,6 @@ killproc() {
 # =============================================================================
 # SSH & Git Management Functions
 # =============================================================================
-
-# Start SSH agent on shell startup
-init_ssh_agent()
 
 # Initialize SSH agent environment (run on shell startup)
 init_ssh_agent() {
@@ -378,30 +383,11 @@ if command -v ng &> /dev/null; then
     source <(ng completion script)
 fi
 
+
+
 # VSCode Shell Integration
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
-
-# Go Lang
-export PATH="$HOME/go/bin:$PATH"
-
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=($HOME/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "${HOME}google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}google-cloud-sdk/completion.zsh.inc"; fi

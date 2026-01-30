@@ -116,6 +116,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-3 = 'workspace 3'
     alt-4 = 'workspace 4'
     alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -123,6 +124,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4'
     alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
     alt-shift-pageDown = 'move-node-to-workspace prev --focus-follows-window'
     alt-shift-pageUp = 'move-node-to-workspace next --focus-follows-window'
     alt-ctrl-shift-j = 'move-node-to-monitor --wrap-around prev'
@@ -155,7 +157,6 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-k = ['join-with down', 'mode main']
     alt-shift-i = ['join-with up', 'mode main']
     alt-shift-l = ['join-with right', 'mode main']
-
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'finder'
@@ -197,6 +198,14 @@ run = ['layout floating']
 if.app-name-regex-substring = 'Contacts'
 run = ['layout floating']
 
+[[on-window-detected]]
+if.app-name-regex-substring = 'Shortcuts'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Bobby'
+run = ['layout floating']
+
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Discord'
@@ -204,12 +213,15 @@ run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Spotify'
-run = 'move-node-to-workspace 4'
+run = 'move-node-to-workspace 6'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Music'
+run = ['move-node-to-workspace 6']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Microsoft Teams'
 run = 'move-node-to-workspace 4'
-
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Warp'
@@ -219,11 +231,9 @@ run = 'move-node-to-workspace 3'
 if.app-name-regex-substring = 'Postman'
 run = 'move-node-to-workspace 3'
 
-
 [[on-window-detected]]
 if.app-name-regex-substring = 'Visual Studio Code'
 run = 'move-node-to-workspace 2'
-
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Xcode'
