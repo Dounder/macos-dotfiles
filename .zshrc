@@ -29,6 +29,10 @@ plugins=(
 
 # Load Oh My Zsh
 source $ZSH/oh-my-zsh.sh
+# Initialize Spaceship prompt globals to avoid unset-parameter warnings
+typeset -gA SPACESHIP_CACHE
+export SPACESHIP_TIME_ASYNC=false
+export SPACESHIP_RPROMPT_ADD_NEWLINE=false
 
 # =============================================================================
 # Environment Variables
@@ -197,6 +201,38 @@ findproc() {
 # Kill process by name
 killproc() {
     pkill -f "$1"
+}
+
+zed_settings() {
+  local dir=".zed"
+  local file="$dir/settings.json"
+  local url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.zed/settings.json"
+
+  mkdir -p "$dir"
+
+  if [ -f "$file" ]; then
+    echo "⚠️  $file already exists. Overwrite? (y/N): "
+    read -r answer
+    [[ "$answer" != "y" && "$answer" != "Y" ]] && echo "Aborted." && return 1
+  fi
+
+  curl -fsSL "$url" -o "$file" && echo "✅ Created $file" || echo "❌ Failed to download settings"
+}
+
+vsc_flutter_settings() {
+  local dir=".vscode"
+  local file="$dir/settings.json"
+  local url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.vscode/flutter_settings.json"
+
+  mkdir -p "$dir"
+
+  if [ -f "$file" ]; then
+    echo "⚠️  $file already exists. Overwrite? (y/N): "
+    read -r answer
+    [[ "$answer" != "y" && "$answer" != "Y" ]] && echo "Aborted." && return 1
+  fi
+
+  curl -fsSL "$url" -o "$file" && echo "✅ Created $file" || echo "❌ Failed to download settings"
 }
 
 # =============================================================================
