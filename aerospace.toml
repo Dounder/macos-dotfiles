@@ -198,22 +198,10 @@ run = ['layout floating']
 if.app-name-regex-substring = 'Contacts'
 run = ['layout floating']
 
-[[on-window-detected]]
-if.app-name-regex-substring = 'Shortcuts'
-run = ['layout floating']
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'Bobby'
-run = ['layout floating']
-
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Discord'
 run = 'move-node-to-workspace 4'
-
-[[on-window-detected]]
-if.app-name-regex-substring = 'Spotify'
-run = 'move-node-to-workspace 6'
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Music'
@@ -232,8 +220,20 @@ if.app-name-regex-substring = 'Postman'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Visual Studio Code'
+if.app-name-regex-substring = 'DataGrip'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Code'
 run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Zed'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-name-regex-substring = 'Simulator'
+run = ['move-node-to-workspace 2', 'layout tiles']
 
 [[on-window-detected]]
 if.app-name-regex-substring = 'Xcode'

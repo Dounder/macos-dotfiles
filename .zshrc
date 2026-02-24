@@ -40,6 +40,7 @@ eval "$(fnm env --use-on-cd --shell zsh)"
 # Flutter & Dart
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/.pub-cache/bin:$PATH"
+export FLUTTER_ROOT="$HOME/flutter"
 # Chrome for Flutter web
 export CHROME_EXECUTABLE="/Applications/Arc.app/Contents/MacOS/Arc"
 
@@ -76,7 +77,7 @@ alias ....='cd ../../..'
 alias ec="zed $HOME/.dotfiles/.zshrc"
 alias sc="source $HOME/.zshrc"
 alias reload="exec zsh"
-alias aec="zed $HOME/.dotfiles/.config/aerospace/aerospace.toml"
+alias aec="zed $HOME/.dotfiles/aerospace.toml"
 
 # Applications
 alias lzd="lazydocker"
@@ -396,12 +397,16 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
+
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "${HOME}google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}google-cloud-sdk/completion.zsh.inc"; fi
