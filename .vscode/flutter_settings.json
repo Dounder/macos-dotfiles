@@ -1,0 +1,59 @@
+{
+  // Search exclusions
+  "search.exclude": {
+    "**/.vscode": true,
+    "**/.dart_tool/": true,
+    "**/android/app/.cxx/": true,
+    "**/android/.gradle/": true,
+    "**/ios/Runner/Assets.xcassets/": true,
+    "**/ios/Runner/Base.Iproj": true,
+    "**/data": true,
+    "**/dist": true,
+    "**/node_modules": true,
+    "**/package-lock.json": true,
+    "**/public": true,
+    "**/build": true,
+    "**/arcgis_maps_core": true,
+    "**/ios/.symlinks": true,
+    "**/ios/Pods": true,
+    "**/*.freezed.dart": true,
+  },
+  // File associations
+  "files.associations": {
+    "plyconfig.json": "jsonc",
+    "*.dart": "dart",
+  },
+  // AUTO-FORMAT SETTINGS (like Prettier)
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+  },
+  // Dart-specific settings
+  "[dart]": {
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.selectionHighlight": false,
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.wordBasedSuggestions": "off",
+  },
+  // Dart formatter settings
+  "dart.insertArgumentPlaceholders": false,
+  "dart.enableSnippets": true,
+  "dart.enableSdkFormatter": true,
+  // Auto-fix and analysis
+  "dart.runPubGetOnPubspecChanges": "always",
+  "dart.previewFlutterUiGuides": true,
+  "dart.previewFlutterUiGuidesCustomTracking": true,
+  "dart.analysisServerFolding": true,
+  "dart.showIgnoreQuickFixes": true,
+  "dart.showTestCodeLens": true,
+  // Git settings
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+}
