@@ -1,0 +1,36 @@
+{
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "JavaScript": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "TSX": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "JSX": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    }
+  }
+}

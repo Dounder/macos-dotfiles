@@ -3,7 +3,6 @@
 # Kiro CLI pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 
-
 # =============================================================================
 # .zshrc Configuration
 # =============================================================================
@@ -206,17 +205,54 @@ killproc() {
 zed_settings() {
   local dir=".zed"
   local file="$dir/settings.json"
-  local url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.zed/settings.json"
+  local base_url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.zed"
+  local requested="$1"
+  local remote_name
+  local remote_url
+  local tmpfile
 
   mkdir -p "$dir"
 
+  # Determine which remote file to request
+  if [[ -z "$requested" ]]; then
+    remote_name="settings.json"
+  else
+    remote_name="${requested}_settings.json"
+  fi
+
+  remote_url="$base_url/$remote_name"
+
+  # Download to a temporary file first so we don't overwrite on failure
+  tmpfile=$(mktemp) || { echo "❌ Could not create temp file"; return 1; }
+
+  if ! curl -fsSL "$remote_url" -o "$tmpfile"; then
+    # If requested a non-default and it failed, try default as a fallback
+    if [[ "$remote_name" != "settings.json" ]]; then
+      echo "⚠️  Requested config '$remote_name' not found. Falling back to default settings.json..."
+      if ! curl -fsSL "$base_url/settings.json" -o "$tmpfile"; then
+        echo "❌ Failed to download default settings.json as fallback"
+        rm -f "$tmpfile"
+        return 1
+      else
+        echo "ℹ️  Using default settings.json"
+      fi
+    else
+      echo "❌ Failed to download default settings.json"
+      rm -f "$tmpfile"
+      return 1
+    fi
+  fi
+
+  # Ask before overwriting existing local file
   if [ -f "$file" ]; then
     echo "⚠️  $file already exists. Overwrite? (y/N): "
     read -r answer
-    [[ "$answer" != "y" && "$answer" != "Y" ]] && echo "Aborted." && return 1
+    if [[ "$answer" != "y" && "$answer" != "Y" ]]; then
+      echo "Aborted." && rm -f "$tmpfile" && return 1
+    fi
   fi
 
-  curl -fsSL "$url" -o "$file" && echo "✅ Created $file" || echo "❌ Failed to download settings"
+  mv "$tmpfile" "$file" && echo "✅ Created $file (from $remote_name)" || { echo "❌ Failed to write $file"; rm -f "$tmpfile"; return 1; }
 }
 
 vsc_flutter_settings() {
@@ -442,6 +478,11 @@ if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+
+
+# Added by Antigravity
+export PATH="/Users/DARamirez/.antigravity/antigravity/bin:$PATH"
 
 
 # Kiro CLI post block. Keep at the bottom of this file.

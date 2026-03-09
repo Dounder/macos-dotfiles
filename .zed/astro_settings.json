@@ -1,0 +1,34 @@
+{
+  "lsp": {
+    "biome": {
+      "binary": {
+        "path": "/usr/bin/false"
+      }
+    }
+  },
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "vtsls",
+        "eslint",
+        "!biome"
+      ],
+      "formatter": "prettier"
+    },
+    "JavaScript": {
+      "language_servers": [
+        "vtsls",
+        "eslint",
+        "!biome"
+      ],
+      "formatter": "prettier"
+    },
+    "Astro": {
+      "language_servers": [
+        "astro-language-server",
+        "!biome"
+      ],
+      "formatter": "prettier"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "languages": {
+    "TypeScript": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    },
+    "JavaScript": {
+      "language_servers": [
+        "vtsls",
+        "biome",
+        "!eslint"
+      ],
+      "formatter": "language_server"
+    }
+  }
+}
