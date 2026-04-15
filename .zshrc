@@ -3,6 +3,8 @@
 # Kiro CLI pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
 
+zmodload zsh/zpty
+
 # =============================================================================
 # .zshrc Configuration
 # =============================================================================
@@ -200,6 +202,46 @@ findproc() {
 # Kill process by name
 killproc() {
     pkill -f "$1"
+}
+
+# List processes on a specific port (or all ports if no argument)
+ports() {
+    if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+        echo "Usage: ports [port]"
+        echo "  List processes on a specific port, or all ports if no argument."
+        return 0
+    fi
+
+    if [ -z "$1" ]; then
+        lsof -i -P | grep LISTEN
+    else
+        lsof -i :"$1" | grep LISTEN
+    fi
+}
+
+# Kill process on a specific port
+killport() {
+    if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+        echo "Usage: killport <port>"
+        echo "  Kill the process running on the specified port."
+        return 0
+    fi
+
+    if [ -z "$1" ]; then
+        echo "Usage: killport <port>"
+        return 1
+    fi
+
+    local pid
+    pid=$(lsof -t -i :"$1")
+
+    if [ -z "$pid" ]; then
+        echo "No process found on port $1"
+        return 1
+    fi
+
+    echo "Killing process $pid on port $1..."
+    kill -9 "$pid" && echo "Done!" || echo "Failed to kill process"
 }
 
 zed_settings() {
@@ -475,15 +517,15 @@ if [ -f "${HOME}/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/google-cloud-
 # The next line enables shell command completion for gcloud.
 if [ -f "${HOME}/google-cloud-sdk/completion.zsh.inc" ]; then . "${HOME}/google-cloud-sdk/completion.zsh.inc"; fi
 
-
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-
 
 # Added by Antigravity
 export PATH="/Users/DARamirez/.antigravity/antigravity/bin:$PATH"
 
-
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+# Bitbucket API token
+export BITBUCKET_USERNAME="dr.glasdou@gmail.com"
+export BITBUCKET_API_TOKEN=$(security find-generic-password -a "$USER" -s "BITBUCKET_API_TOKEN" -w)
