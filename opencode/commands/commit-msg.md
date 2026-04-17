@@ -1,24 +1,12 @@
 ---
-description: Generate a commit message using caveman-commit and conventional commit rules
+description: Analyze staged changes and commit following Conventional Commits
 agent: build
 model: opencode/big-pickle
 ---
+Load `caveman` skill (ultra mode) once at start.
 
-# Execution
-1. Use the `caveman-commit` skill to analyze the current staged changes.
-2. Ensure the output follows the Conventional Commits specification below.
+Conventional Commits: `<type>(<scope>): <desc>` — imperative, ≤72 chars, no period. Types: feat/fix/docs/style/refactor/test/chore/perf/ci/build/revert. Body only if why isn't obvious.
 
-# Conventional Commits Rules
-Format: <type>[optional scope]: <description>
+On "commit": ALWAYS run `git diff --staged` first — never assume state from previous checks.
 
-Allowed Types:
-- feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
-
-Requirements:
-- Start with an allowed type.
-- Use imperative mood (e.g., "add" not "adds").
-- Length must be less than 100 characters.
-- Match regex: ^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?: .+
-
-# Final Action
-Call `caveman-commit` with these constraints to generate and suggest the commit message.
+Never: git add, git push, multiple diff calls, load caveman-commit skill, re-load caveman if already active.

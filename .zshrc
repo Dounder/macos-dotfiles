@@ -297,21 +297,21 @@ zed_settings() {
   mv "$tmpfile" "$file" && echo "✅ Created $file (from $remote_name)" || { echo "❌ Failed to write $file"; rm -f "$tmpfile"; return 1; }
 }
 
-vsc_flutter_settings() {
-  local dir=".vscode"
-  local file="$dir/settings.json"
-  local url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.vscode/flutter_settings.json"
+# vsc_flutter_settings() {
+#   local dir=".vscode"
+#   local file="$dir/settings.json"
+#   local url="https://raw.githubusercontent.com/Dounder/macos-dotfiles/main/.vscode/flutter_settings.json"
 
-  mkdir -p "$dir"
+#   mkdir -p "$dir"
 
-  if [ -f "$file" ]; then
-    echo "⚠️  $file already exists. Overwrite? (y/N): "
-    read -r answer
-    [[ "$answer" != "y" && "$answer" != "Y" ]] && echo "Aborted." && return 1
-  fi
+#   if [ -f "$file" ]; then
+#     echo "⚠️  $file already exists. Overwrite? (y/N): "
+#     read -r answer
+#     [[ "$answer" != "y" && "$answer" != "Y" ]] && echo "Aborted." && return 1
+#   fi
 
-  curl -fsSL "$url" -o "$file" && echo "✅ Created $file" || echo "❌ Failed to download settings"
-}
+#   curl -fsSL "$url" -o "$file" && echo "✅ Created $file" || echo "❌ Failed to download settings"
+# }
 
 # =============================================================================
 # SSH & Git Management Functions
@@ -494,7 +494,7 @@ if command -v ng &> /dev/null; then
 fi
 
 # VSCode Shell Integration
-[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+# [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
 
 # Go Lang
 export PATH="$HOME/go/bin:$PATH"
@@ -529,3 +529,7 @@ export PATH="/Users/DARamirez/.antigravity/antigravity/bin:$PATH"
 # Bitbucket API token
 export BITBUCKET_USERNAME="dr.glasdou@gmail.com"
 export BITBUCKET_API_TOKEN=$(security find-generic-password -a "$USER" -s "BITBUCKET_API_TOKEN" -w)
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/DARamirez/.lmstudio/bin"
+# End of LM Studio CLI section
