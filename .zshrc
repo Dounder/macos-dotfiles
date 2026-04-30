@@ -533,3 +533,8 @@ export BITBUCKET_API_TOKEN=$(security find-generic-password -a "$USER" -s "BITBU
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/DARamirez/.lmstudio/bin"
 # End of LM Studio CLI section
+
+export GOPATH=$HOME/go
+
+# Added by Antigravity
+export PATH="/Users/DARamirez/.antigravity/antigravity/bin:$PATH"
