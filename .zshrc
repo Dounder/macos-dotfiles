@@ -167,6 +167,11 @@ alias brewup="brew update && brew upgrade && brew cleanup"
 # Utility Functions
 # =============================================================================
 
+# Checkout to branch and pull the changes
+gcop() {
+    git checkout "$1" && git pull
+}
+
 # Create directory and cd into it
 mkcd() {
     mkdir -p "$1" && cd "$1"
