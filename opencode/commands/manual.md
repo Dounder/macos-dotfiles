@@ -1,23 +1,26 @@
 ---
 description: Command to generate a project manual with context optimization
 agent: build
-model: opencode/big-pickle
+model: opencode/minimax-m2.5-free
 ---
 
 # Pre-Analysis Optimization
 1. For any source file or documentation larger than 20KB, use the `caveman-compress` skill to create a high-density summary before reading.
-2. Perform the deep-dive analysis using these compressed versions to ensure no "context drifting" occurs.
+2. Perform the deep-dive analysis using these compressed versions to ensure no context drift occurs.
+3. If `$ARGUMENTS` is non-empty, use it to focus or scope the analysis (e.g. a specific service, module, or concern).
 
 # Instructions
-Before writing anything, perform a **thorough deep-dive analysis** of the entire codebase. Take all the time needed — completeness is more important than speed. This includes:
+Before writing anything, perform a **thorough deep-dive analysis** of the entire codebase. Completeness is more important than speed. This includes:
 
 - Recursively traverse every directory and file (source, config, scripts, assets, tests, CI/CD, Docker, infra)
-- Read all relevant source files: modules, services, controllers, providers, routes, models, schemas, hooks, components, guards, interceptors, middleware, pipes, decorators, migrations, seeders, and any shared utilities
+- Read all relevant source files: modules, services, controllers, providers, routes, models, schemas, hooks, components, guards, interceptors, middleware, pipes, decorators, migrations, seeders, and shared utilities
 - Analyze all configuration files: environment files, build configs, dependency manifests, and deployment descriptors
 - Identify all integrations, third-party libraries, and external services
 - Map every data flow, API contract, authentication/authorization mechanism, state management pattern, and inter-module communication
 - Detect architectural patterns in use (e.g. Clean Architecture, BLoC, DDD, feature-first, barrel exports, dependency injection)
 - Do not skip any file — if uncertain whether something is relevant, read it
+
+Determine the project name from `package.json`, `pubspec.yaml`, `go.mod`, the root folder name, or any other manifest — in that order of preference.
 
 Only after completing the full scan, generate the two manuals below.
 
@@ -65,31 +68,34 @@ Sections to include:
 
 ---
 
-## Output rules
+## Output Rules
 
-- Write two separate Markdown files: `[projectName]-manual-technical.md` and `[projectName]-manual-directives.md`
-- Do not cross-reference between files — each must be self-contained and readable independently
-- Use headers, subheaders, tables, and code blocks where they aid clarity
-- Do not fabricate details — if something is not determinable from the code, mark it as `[not found in codebase]`
-- Keep `manual-directives.md` free of raw code snippets; use pseudocode or plain descriptions instead
-- Aim for exhaustive coverage over brevity — these documents will be uploaded separately to NotebookLM for AI-assisted consultation
-- Place both files at the project root unless a `/docs` folder already exists, in which case place them there
-- Write `manual-technical.md` in English
-- Write `manual-directives.md` in Spanish, using formal but approachable language (usted form is not required but preferible); keep all technical terms, proper nouns, library names, and code references in their original English form
+- Determine output path first: use `/docs` if it exists, otherwise use the project root.
+- Write two separate Markdown files:
+  - `[projectName]-manual-technical.md` — in English
+  - `[projectName]-manual-directives.md` — in Spanish (formal but approachable; `usted` preferred but not required)
+- In `manual-directives.md`, keep all technical terms, proper nouns, library names, and code references in their original English form.
+- Do not cross-reference between files — each must be self-contained and readable independently.
+- Use headers, subheaders, tables, and code blocks where they aid clarity.
+- Do not fabricate details — if something is not determinable from the code, mark it as `[not found in codebase]`.
+- Keep `manual-directives.md` free of raw code snippets; use pseudocode or plain descriptions instead.
+- Aim for exhaustive coverage over brevity — these documents will be uploaded to NotebookLM for AI-assisted consultation.
 
-## Mermaid diagrams
+---
 
-Include Mermaid diagrams where they add clarity. Use fenced code blocks with the `mermaid` language tag. Rules:
+## Mermaid Diagrams
 
-- **Manual 1** — include diagrams freely wherever they help a developer understand structure or flow
+Include Mermaid diagrams where they add clarity. Use fenced code blocks with the `mermaid` language tag.
+
+- **Manual 1** — include freely wherever they help a developer understand structure or flow
 - **Manual 2** — limit to 1–2 high-level diagrams maximum; keep them simple and label-friendly
 - Never fabricate relationships — only diagram what is confirmed in the codebase
+- If a diagram would exceed ~20 nodes, split it into focused sub-diagrams
+- Add a one-sentence caption below every diagram explaining what it shows
 - Prefer these diagram types based on context:
   - `flowchart TD` — request lifecycle, auth flows, background job pipelines, data processing chains
   - `erDiagram` — database entities and their relationships (use field types if determinable)
   - `sequenceDiagram` — inter-service communication, API call chains, WebSocket handshakes
   - `classDiagram` — module dependencies, DI structure, or domain model hierarchy
   - `graph LR` — high-level system architecture (services, databases, queues, external APIs)
-- Keep node labels short and unambiguous — avoid abbreviations unless they are used in the codebase itself
-- Add a one-sentence caption below every diagram explaining what it shows
-- If a diagram would exceed ~20 nodes, split it into focused sub-diagrams rather than producing one unreadable chart
+- Keep node labels short and unambiguous — avoid abbreviations unless they appear in the codebase itself
